@@ -1,5 +1,14 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import components from "./components";
+import { App } from "vue";
+import "./styles/styles.scss";
+import * as components from "@/components";
 
-createApp(App).use(components).mount("#app");
+export default {
+  install(app: App) {
+    // Auto import all components
+    for (const componentKey in components) {
+      app.component((components as any)[componentKey]);
+    }
+  },
+};
+
+export * from "./components";
