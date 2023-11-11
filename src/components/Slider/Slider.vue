@@ -20,12 +20,11 @@ export interface SliderProps {
 const props = defineProps<SliderProps>();
 
 const currentSlideId = ref(0);
-const slideDirection = ref("");
+
 const downX = ref(1);
 const upX = ref(1);
 
 function slideLeft() {
-  slideDirection.value = "left";
   if (currentSlideId.value > 0) {
     currentSlideId.value--;
   } else {
@@ -34,7 +33,6 @@ function slideLeft() {
 }
 
 function slideRight() {
-  slideDirection.value = "right";
   if (currentSlideId.value < props.slides.length - 1) {
     currentSlideId.value++;
   } else {
@@ -84,8 +82,8 @@ const listenToTouchEnd = (e: TouchEvent) => {
     >
       <div
         class="slider__slide"
-        v-for="slide in props.slides"
-        :key="slide.label"
+        v-for="(slide, index) in props.slides"
+        :key="index"
         :style="{ backgroundImage: `url(${slide.image})` }"
       >
         <h1>{{ slide.label }}</h1>
@@ -96,7 +94,7 @@ const listenToTouchEnd = (e: TouchEvent) => {
     <div class="slider__dot-navigation">
       <button
         v-for="(slide, index) in props.slides"
-        :key="slide.label"
+        :key="index"
         class="slider__dot"
         :class="{ 'slider__dot--active': index === currentSlideId }"
         @click="currentSlideId = index"
