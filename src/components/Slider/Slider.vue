@@ -13,11 +13,11 @@ export interface Slide {
   image: string;
 }
 
-interface Props {
+export interface SliderProps {
   slides: Slide[];
 }
 
-const props = defineProps<Props>();
+const props = defineProps<SliderProps>();
 
 const slidesRef = toRef(props, "slides");
 
